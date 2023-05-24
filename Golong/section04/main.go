@@ -22,7 +22,7 @@ func main() {
 
 	// 文字列 (String) → 数値 (int)
 	var s string = "123"
-	var s2 string = "Draemon"
+	var s2 string = "hello"
 	var Toint_s int
 	var Toint_err int
 
@@ -31,7 +31,15 @@ func main() {
 
 	var err error
 
-	Toint_err, _ = strconv.Atoi(s2)
-	fmt.Println(Toint_err)
-	fmt.Println(err)
+	Toint_err, err = strconv.Atoi(s2)
+	fmt.Println(Toint_err) // 0
+	fmt.Println(err)       // strconv.Atoi: parsing "hello": invalid syntax
+
+	// 文字列 (string) → 論理型 (bool)
+	var s3 string = "true"
+	var toBool bool
+
+	toBool, _ = strconv.ParseBool(s3)
+	fmt.Println(toBool) // ture
+
 }
