@@ -49,4 +49,10 @@ func main() {
 	toString_b = strconv.FormatBool(b1)
 	fmt.Println(toString_b) // "false"
 
+	var b32 float32 = 123456789012345678901234567
+	var b64 float64 = 123456789012345678901234567
+
+	fmt.Println(b32) //1.2345679e+26
+	fmt.Println(b64) //1.2345678901234568e+26
+
 }
