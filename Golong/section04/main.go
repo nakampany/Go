@@ -42,4 +42,11 @@ func main() {
 	toBool, _ = strconv.ParseBool(s3)
 	fmt.Println(toBool) // ture
 
+	// 論理型 (bool) → 文字列 (string)
+	var b1 bool = false
+	var toString_b string
+
+	toString_b = strconv.FormatBool(b1)
+	fmt.Println(toString_b) // "false"
+
 }
