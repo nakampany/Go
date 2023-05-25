@@ -22,3 +22,4 @@ func main() {
 	fmt.Println("Last name:", person1.lastName)
 	fmt.Println("Age:", person1.age)
 }
+
