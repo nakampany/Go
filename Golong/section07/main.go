@@ -14,6 +14,14 @@ func add(x int, y int) int {
 	return x + y
 }
 
+func add1() (func int) {
+	x := 0
+	return func() int {
+		x++
+		return x
+	}
+}
+
 func main() {
 	p("It's sample function")
 	p("Do you like Golang?")
@@ -35,4 +43,11 @@ func main() {
 	func(word string) {
 		fmt.Println(word)
 	}("hogehoge")
+
+	// クロージャー
+		// addGen2は関数が戻り値なので変数に代入
+    add2 := addGen2()
+    fmt.Println(add2())
+    fmt.Println(add2())
+    fmt.Println(add2())
 }
