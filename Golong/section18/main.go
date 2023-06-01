@@ -25,4 +25,7 @@ func main() {
 
 	u.CreateUser()
 
+	u1, _ := models.GetUser(1)
+	fmt.Println(u1)
+
 }
