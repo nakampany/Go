@@ -199,8 +199,19 @@ func (t *Todo) UpdateTodo() error {
 }
 ```
 ```
-
+{1 First Todo 2 2023-06-01 14:22:21.223805 +0900 +0900}
+{2 Second Todo 2 2023-06-01 14:41:19.099977 +0900 +0900}
 ```
 Todoの削除（Delete）
+```
+func (t *Todo) DeleteTodo() error {
+	cmd := `delete from todos where id = ?`
+	_, err = Db.Exec(cmd, t.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
+```
 ```
 ```
