@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"udemy/Golong/section18/app/models"
 	"udemy/Golong/section18/config"
 )
 
@@ -13,4 +14,7 @@ func main() {
 	fmt.Println(config.Config.DbName)
 	fmt.Println(config.Config.LogFile)
 	log.Println("test")
+
+	fmt.Println(models.Db)
+
 }
