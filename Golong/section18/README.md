@@ -10,8 +10,7 @@ func (u *User) CreateUser() (err error) {
 		name,
 		email,
 		password,
-		created_at
-		) values (?, ?, ?, ?, ?)`
+		created_at) values (?, ?, ?, ?, ?)`
 
 	_, err = Db.Exec(cmd,
 		createUUID(),
@@ -19,6 +18,12 @@ func (u *User) CreateUser() (err error) {
 		u.Email,
 		Encrypt(u.PassWord),
 		time.Now())
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
 ```
 ```
 sqlite3 webapp.sql
@@ -62,6 +67,19 @@ func (u *User) UpdateUser() (err error) {
 {1 6ebff1fa-0027-11ee-85de-d22101a468e6 test test@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
 {1 6ebff1fa-0027-11ee-85de-d22101a468e6 test2 test2@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
 ```
-ユーザーの削除（Delete)
+ユーザーの削除（Delete）
+```
+func (u *User) DeleteUser() (err error) {
+	cmd := `delete from users where id = ?`
+	_, err = Db.Exec(cmd, u.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
+```
 
-
+```
+{1 6ebff1fa-0027-11ee-85de-d22101a468e6 test2 test2@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
+{0     0001-01-01 00:00:00 +0000 UTC}
+```
