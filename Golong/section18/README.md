@@ -106,11 +106,101 @@ sqlite> SELECT * FROM todos;
 1|First Todo|2|2023-06-01 14:22:21.223805+09:00
 ```
 Todoの取得（シングルセレクト）（Read）
+```
+func GetTodo(id int) (todo Todo, err error) {
+	cmd := `select * from todos
+	where id = ?`
+	todo = Todo{}
+
+	err = Db.QueryRow(cmd, id).Scan(
+		&todo.ID,
+		&todo.Content,
+		&todo.UserID,
+		&todo.CreatedAt)
+
+	return todo, err
+}
+```
 
 Todoの取得（マルチセレクト）
+```
+func GetTodos() (todos []Todo, err error) {
+	cmd := `select * from todos`
+	rows, err := Db.Query(cmd)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	for rows.Next() {
+		var todo Todo
+		err = rows.Scan(
+			&todo.ID,
+			&todo.Content,
+			&todo.UserID,
+			&todo.CreatedAt)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		todos = append(todos, todo)
+	}
+	rows.Close()
+
+	return todos, err
+}
+```
+```
+{1 First Todo 2 2023-06-01 14:22:21.223805 +0900 +0900}
+{2 Second Todo 2 2023-06-01 14:41:19.099977 +0900 +0900}
+```
 
 Todoの取得（マルチセレクト２）
+```
+func (u *User) GetTodosByUser() (todos []Todo, err error) {
+	cmd := `select id, content, user_id, created_at from todos
+	where user_id = ?`
 
-Todoの更新（Update)
+	rows, err := Db.Query(cmd, u.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	for rows.Next() {
+		var todo Todo
+		err = rows.Scan(
+			&todo.ID,
+			&todo.Content,
+			&todo.UserID,
+			&todo.CreatedAt)
 
-Todoの削除（Delete)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		todos = append(todos, todo)
+	}
+	rows.Close()
+
+	return todos, err
+}
+```
+```
+{1 First Todo 2 2023-06-01 14:22:21.223805 +0900 +0900}
+{2 Second Todo 2 2023-06-01 14:41:19.099977 +0900 +0900}
+```
+
+Todoの更新（Update）
+
+```
+func (t *Todo) UpdateTodo() error {
+	cmd := `update todos set content = ?, user_id = ? 
+	where id = ?`
+	_, err = Db.Exec(cmd, t.Content, t.UserID, t.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
+```
+```
+
+```
+Todoの削除（Delete）
+```
+```
