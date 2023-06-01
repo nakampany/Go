@@ -83,3 +83,34 @@ func (u *User) DeleteUser() (err error) {
 {1 6ebff1fa-0027-11ee-85de-d22101a468e6 test2 test2@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
 {0     0001-01-01 00:00:00 +0000 UTC}
 ```
+
+Todoテーブルの作成
+
+Todoの作成（Create）
+```
+func (u *User) CreateTodo(content string) (err error) {
+	cmd := `insert into todos (
+		content,
+		user_id,
+		created_at) values (?, ?, ?)`
+
+	_, err = Db.Exec(cmd, content, u.ID, time.Now())
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
+```
+```
+sqlite> SELECT * FROM todos;
+1|First Todo|2|2023-06-01 14:22:21.223805+09:00
+```
+Todoの取得（シングルセレクト）（Read）
+
+Todoの取得（マルチセレクト）
+
+Todoの取得（マルチセレクト２）
+
+Todoの更新（Update)
+
+Todoの削除（Delete)
