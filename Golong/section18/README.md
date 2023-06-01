@@ -48,7 +48,20 @@ func GetUser(id int) (user User, err error) {
 ```
 
 ユーザーの更新（Update）
-
+```
+func (u *User) UpdateUser() (err error) {
+	cmd := `update users set name = ?, email = ? where id = ?`
+	_, err = Db.Exec(cmd, u.Name, u.Email, u.ID)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return err
+}
+```
+```
+{1 6ebff1fa-0027-11ee-85de-d22101a468e6 test test@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
+{1 6ebff1fa-0027-11ee-85de-d22101a468e6 test2 test2@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
+```
 ユーザーの削除（Delete)
 
 
