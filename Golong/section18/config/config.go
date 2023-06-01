@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"gopkg.in/go-ini/ini.v1"
+	"udemy/Golong/section18/utils"
 )
 
 type ConfigList struct {
@@ -18,7 +19,7 @@ var Config ConfigList
 
 func init() {
 	LoadConfig()
-	// utils.LoggingSettings(Config.LogFile)
+	utils.LoggingSettings(Config.LogFile)
 }
 
 func LoadConfig() {
