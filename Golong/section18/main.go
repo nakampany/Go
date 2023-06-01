@@ -57,6 +57,7 @@ func main() {
 	// 	fmt.Println(v)
 	// }
 
-	t, _ := models.GetTodo(3)
-	t.DeleteTodo()
+	// t, _ := models.GetTodo(3)
+	// t.DeleteTodo()
+
 }
