@@ -1,9 +1,12 @@
 ユーザーの登録ページの作成
-SignUp
+137.SignUp
 ユーザーのログインページの作成
-SignIn(Login)
-
+139.SignIn(Login)
+create, Session
+check, Session
+Cookie
 
 ユーザーのログアウト１
-
+141.Logout
 ユーザーのログアウト２
+142.Logout

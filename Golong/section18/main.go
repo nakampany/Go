@@ -13,6 +13,8 @@ func main() {
 	fmt.Println(models.Db)
 	controllers.StartMainServer()
 
+	// user, _ := models.GetUserByEmail("test@test.com")
+	// fmt.Println(user)
 	// fmt.Println(config.Config.Port)
 	// fmt.Println(config.Config.SQLDriver)
 	// fmt.Println(config.Config.DbName)
