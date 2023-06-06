@@ -3,7 +3,6 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"udemy/Golong/section18/app/models"
 )
 
 func top(w http.ResponseWriter, r *http.Request) {
