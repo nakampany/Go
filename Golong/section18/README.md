@@ -3,7 +3,7 @@
 DBの作成 + Userテーブルの設定、作成
 
 ユーザーの作成（Create）
-```
+```go
 func (u *User) CreateUser() (err error) {
 	cmd := `insert into users (
 		uuid,
@@ -32,7 +32,7 @@ sqlite> SELECT * FROM users;
 ```
 
 ユーザーの取得（Get）
-```
+```go
 func GetUser(id int) (user User, err error) {
 	user = User{}
 	cmd := `select * from users where id=?`
@@ -53,7 +53,7 @@ func GetUser(id int) (user User, err error) {
 ```
 
 ユーザーの更新（Update）
-```
+```go
 func (u *User) UpdateUser() (err error) {
 	cmd := `update users set name = ?, email = ? where id = ?`
 	_, err = Db.Exec(cmd, u.Name, u.Email, u.ID)
@@ -68,7 +68,7 @@ func (u *User) UpdateUser() (err error) {
 {1 6ebff1fa-0027-11ee-85de-d22101a468e6 test2 test2@test.com 51abb9636078defbf888d8457a7c76f85c8f114c 2023-06-01 11:53:05.686254 +0900 +0900}
 ```
 ユーザーの削除（Delete）
-```
+```go
 func (u *User) DeleteUser() (err error) {
 	cmd := `delete from users where id = ?`
 	_, err = Db.Exec(cmd, u.ID)
@@ -87,7 +87,7 @@ func (u *User) DeleteUser() (err error) {
 Todoテーブルの作成
 
 Todoの作成（Create）
-```
+```go
 func (u *User) CreateTodo(content string) (err error) {
 	cmd := `insert into todos (
 		content,
@@ -106,7 +106,7 @@ sqlite> SELECT * FROM todos;
 1|First Todo|2|2023-06-01 14:22:21.223805+09:00
 ```
 Todoの取得（シングルセレクト）（Read）
-```
+```go
 func GetTodo(id int) (todo Todo, err error) {
 	cmd := `select * from todos
 	where id = ?`
@@ -123,7 +123,7 @@ func GetTodo(id int) (todo Todo, err error) {
 ```
 
 Todoの取得（マルチセレクト）
-```
+```go
 func GetTodos() (todos []Todo, err error) {
 	cmd := `select * from todos`
 	rows, err := Db.Query(cmd)
@@ -153,7 +153,7 @@ func GetTodos() (todos []Todo, err error) {
 ```
 
 Todoの取得（マルチセレクト２）
-```
+```go
 func (u *User) GetTodosByUser() (todos []Todo, err error) {
 	cmd := `select id, content, user_id, created_at from todos
 	where user_id = ?`
@@ -187,7 +187,7 @@ func (u *User) GetTodosByUser() (todos []Todo, err error) {
 
 Todoの更新（Update）
 
-```
+```go
 func (t *Todo) UpdateTodo() error {
 	cmd := `update todos set content = ?, user_id = ? 
 	where id = ?`
@@ -203,7 +203,7 @@ func (t *Todo) UpdateTodo() error {
 {2 Second Todo 2 2023-06-01 14:41:19.099977 +0900 +0900}
 ```
 Todoの削除（Delete）
-```
+```go
 func (t *Todo) DeleteTodo() error {
 	cmd := `delete from todos where id = ?`
 	_, err = Db.Exec(cmd, t.ID)
@@ -212,6 +212,4 @@ func (t *Todo) DeleteTodo() error {
 	}
 	return err
 }
-```
-```
 ```
