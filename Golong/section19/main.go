@@ -29,6 +29,15 @@ func Add2[T Number2](a, b T) T {
 
 type MyInt int
 
+// 3
+type SampleType interface {
+	string | int
+}
+
+func sampleFuncGenerics[T SampleType](x T) T {
+	return x
+}
+
 func main() {
 	PrintSlice[int]([]int{1, 2, 3, 4, 5, 6, 7, 8, 9})
 	PrintSlice[string]([]string{"a", "b", "c", "d", "e", "f", "g", "h", "i"})
@@ -36,5 +45,8 @@ func main() {
 	fmt.Println(Add[int](1, 2))
 
 	fmt.Println(Add2[MyInt](1, 2))
+
+	fmt.Println(sampleFuncGenerics[int](1))
+	fmt.Println(sampleFuncGenerics[string]("a"))
 
 }
