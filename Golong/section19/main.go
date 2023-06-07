@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // 1
 // 引数の型を[T any](s []T)にすることで、どんな型でも受け取れるようになる
@@ -40,6 +43,44 @@ func sampleFuncGenerics[T SampleType](x T) T {
 	return x
 }
 
+// 5
+// fは型パラメータを持つ関数
+// Tは型パラメータ
+// インタフェースStringerは、Tに対する型制約として使われている
+func f[T Stringer](xs []T) []string {
+	var result []string
+	for _, x := range xs {
+		result = append(result, x.String())
+	}
+	return result
+}
+
+type Stringer interface {
+	String() string
+}
+
+// MyIntはStringerを実装する
+func (i MyInt) String() string {
+	return strconv.Itoa(int(i))
+}
+
+// 6
+type Vector[T any] []T
+
+// 7
+type T[A any, B []C, C *A] struct {
+	a A
+	b B
+	c C
+}
+
+// 8
+type set[T comparable] map[T]struct{}
+
+func (s set[T]) add(x T) {
+	s[x] = struct{}{}
+}
+
 func main() {
 	// 1
 	PrintSlice[int]([]int{1, 2, 3, 4, 5, 6, 7, 8, 9})
@@ -52,4 +93,18 @@ func main() {
 	fmt.Println(sampleFuncGenerics[int](1))
 	fmt.Println(sampleFuncGenerics[string]("a"))
 
+	// 5
+	fmt.Println(f([]MyInt{1, 2, 3, 4, 5, 6, 7, 8, 9}))
+
+	// 6
+	v := Vector[int]{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	fmt.Println(v)
+
+	// 7
+	var t T[int, []*int, *int]
+	fmt.Println(t)
+
+	// 8
+	s := make(set[int])
+	s.add(1)
 }
