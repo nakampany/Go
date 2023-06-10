@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    container_name: app_container
+    build:
+      context: .
+      dockerfile: ./Docker/go/Dockerfile
+    tty: true
+    depends_on:
+      - postgres
+    ports:
+      - ${APP_PORT}:8080
+    volumes:
+      - ./go:/usr/local/go/src/app
+      - .env:/usr/local/go/src/web/app/.env
+  
+  postgres:
+    container_name: postgres_container
+    build:
+      context: .
+      dockerfile: ./Docker/postgre/Dockerfile
+    environment:
+      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db-store:/var/lib/postgresql/data
+      - ./go/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - ${DB_PORT}:5432
+
+volumes:
+  db-store:
