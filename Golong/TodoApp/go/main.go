@@ -2,11 +2,18 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"udemy/Golong/TodoApp/go/utils"
 )
+
+func init() {
+	utils.LoggingSettings("./app.log")
+}
 
 // メイン関数
 func main() {
+	log.Println("test")
 	fmt.Println("Hello, World!")
 	StartMainServer()
 }
