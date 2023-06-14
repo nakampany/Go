@@ -4,11 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	// postgres ドライバ
-	_ "github.com/lib/pq"
-	"log"
-
 	"crypto/sha1"
 	"github.com/google/uuid"
+	_ "github.com/lib/pq"
+	"log"
 )
 
 var Db *sql.DB
@@ -22,9 +21,14 @@ const (
 func init() {
 	// DB接続
 	Db, err := sql.Open("postgres", "host=postgres user=postgres password=postgres dbname=postgres sslmode=disable")
+
 	if err != nil {
 		log.Fatalln(err)
 	}
+	fmt.Println("----------------------------------")
+	fmt.Println(Db)
+	fmt.Println(Db.Stats())
+	fmt.Println("----------------------------------")
 
 	// Userテーブル作成
 	cmdU := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s(

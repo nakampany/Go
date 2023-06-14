@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"udemy/Golong/TodoApp/go/app/models"
 	"udemy/Golong/TodoApp/go/utils"
@@ -14,16 +13,9 @@ func init() {
 
 // メイン関数
 func main() {
-	log.Println("Hello World")
 
-	u := &models.User{}
-	u.Name = "test"
-	u.Email = "test@test.com"
-	u.Password = "testtest"
+	u, _ := models.GetUser(1)
 	fmt.Println(u)
-
-	u.CreateUser()
-	log.Println("Create User")
 
 	StartMainServer()
 }
