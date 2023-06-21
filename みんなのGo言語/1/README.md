@@ -12,14 +12,28 @@ https://qiita.com/ryoppy/items/4819d0911bf937dba821
 https://zenn.dev/lilpacy/articles/68adb372f67e67
 
 ## Goらしいコードを書く
-error をちゃんと使う。1.14で try の導入見送りになったっぽいので多値返却でいく
-正規表現はできるだけ使わず、使っても regexp.MustCompile で確定させておく
-map を避ける。できるだけ構造体を使って型を定義する
-reflect を避ける。できるだけ型をつける
-巨大な struct を作らず継承させようとしない。これは API の JSON Response を分割して作る時に思う
-並行処理を使いすぎない
-Go のコードを読もう
-Go のバージョンは古いけど「GoのためのGo」も参考になるかも
-テストとCI。 go vet や golint などでのチェックを入れる
-ビルドとデプロイ。ビルド時の埋め込みやフラグ分岐など
-モニタリング
+- error をちゃんと返す。panicは使わない
+- 正規表現はできるだけ使わずStringsパッケージを使う。使っても regexp.MustCompile 。
+- map を避ける。構造体を使って型を定義する
+```go
+a := map[string]string(
+  "foo": "bar",
+  "baz": "hoge"
+)
+
+type data struct {
+  foo string
+  baz string
+}
+d := data{
+  "foo": "bar",
+  "baz": "hoge"
+}
+```
+- reflect を避ける。できるだけ型をつける 5章にて
+- 巨大な struct を作らず継承させようとしない。
+- 並行処理を使いすぎない
+- Go のコードを読もう
+- テストとCI
+- ビルドとデプロイ
+- モニタリング
