@@ -25,9 +25,7 @@ type Session struct {
 func (u *User) CreateUser() (err error) {
 	cmd := `insert into users (uuid, name, email, password created_at) values (?, ?, ?, ?, ?)`
 
-	_, err = Db.Exec(cmd, createUUID(), u.Name, u.Email, Encrypt(u.Password), time.Now())
-
-	if err != nil {
+	if _, err = Db.Exec(cmd, createUUID(), u.Name, u.Email, Encrypt(u.Password), time.Now()); err != nil {
 		log.Fatalln(err)
 	}
 	return err
