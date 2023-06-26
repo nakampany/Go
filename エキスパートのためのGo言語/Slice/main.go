@@ -76,4 +76,69 @@ func main() {
 
 	fmt.Println(s) // [1 2 4 5 0]
 
+	// copy関数を使った要素のシフト
+	s = []int{1, 2, 3, 4, 5}
+	i = 2
+	copy(s[i:], s[i+1:])
+	s[len(s)-1] = 0
+
+	fmt.Println(s) // [1 2 4 5 0]
+
+	// スライスの要素をシフト: 2
+	s = []int{1, 2, 3, 4, 5}
+	i = 2
+	s = append(s[:i], s[i:len(s)-1]...)
+	s = append(s, 0)
+
+	fmt.Println(s) // [1 2 4 5 0]
+
+	// スライスの要素を偶数でフィルタリング
+	s = []int{1, 2, 3, 4, 5}
+	for i := 0; i < len(s); {
+		if s[i]%2 == 0 {
+			s = append(s[:i], s[i+1:]...)
+		} else {
+			i++
+		}
+	}
+
+	fmt.Println(s) // [1 3 5]
+
+	// スライスを任意の要素数に分割
+	s = []int{1, 2, 3, 4, 5}
+	n = 2
+	for i := 0; i < len(s); i += n {
+		fmt.Println(s[i : i+n])
+	}
+
+	// [1 2]
+	// [3 4]
+	// [5]
+
+	// スライスを任意の要素数に分割: 2
+	s = []int{1, 2, 3, 4, 5}
+	n = 2
+	for i := 0; i < len(s); i += n {
+		end := i + n
+		if end > len(s) {
+			end = len(s)
+		}
+		fmt.Println(s[i:end])
+	}
+
+	// [1 2]
+	// [3 4]
+	// [5]
+
+	// スライスを任意の要素数に分割: 3
+	src1 := []int{1, 2, 3, 4, 5}
+	size := 2
+	dst1 := make([][]int, 0, (len(src1)+size-1)/size)
+	for size < len(src1) {
+		src1, dst1 = src1[size:], append(dst1, src1[0:size:size])
+	}
+	dst1 = append(dst1, src1)
+
+	fmt.Println(dst1) // [[1 2] [3 4] [5]]
+
 }
