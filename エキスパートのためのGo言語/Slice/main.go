@@ -3,6 +3,58 @@ package main
 import "fmt"
 
 func main() {
+	// スライスの定義
+
+	// スライスの定義: 1
+	var s []int
+	fmt.Println(s) // []
+
+	// スライスの定義: 2
+	s = []int{1, 2, 3}
+	fmt.Println(s) // [1 2 3]
+
+	// スライスの定義: 3
+	s = make([]int, 3)
+	fmt.Println(s) // [0 0 0]
+
+	// スライスの定義: 4
+	s = make([]int, 3, 5)
+	fmt.Println(s) // [0 0 0]
+
+	// スライスの定義: 5
+	s = []int{1: 5, 4: 10}
+	fmt.Println(s) // [0 5 0 0 10]
+
+	// 配列の定義： 1
+	var a [3]int
+	fmt.Println(a) // [0 0 0]
+
+	// 配列の定義： 2
+	a = [3]int{1, 2, 3}
+	fmt.Println(a) // [1 2 3]
+
+	// 配列の定義： 3
+	a = [...]int{1, 2, 3}
+	fmt.Println(a) // [1 2 3]
+
+	// mapの定義： 1
+	var m map[string]int
+	fmt.Println(m) // map[]
+
+	// mapの定義： 2
+	m = map[string]int{"x": 10, "y": 20}
+	fmt.Println(m) // map[x:10 y:20]
+
+	// mapの定義： 3
+	m = make(map[string]int)
+	fmt.Println(m) // map[]
+
+	// スライスの要素の取得
+	s = []int{1, 2, 3}
+	fmt.Println(s[0]) // 1
+	fmt.Println(s[1]) // 2
+	fmt.Println(s[2]) // 3
+
 	// スライスのコピー
 	src := []int{1, 2, 3, 4, 5}
 	dst := make([]int, len(src))
