@@ -62,12 +62,35 @@ func main() {
 
 	fmt.Println(n, dst) // 5 [1 2 3 4 5]
 
+	// スライスのコピー: 2
+	src = []int{1, 2, 3, 4, 5}
+	dst = src[:]
+	n = copy(dst, src)
+
+	fmt.Println(n, dst) // 5 [1 2 3 4 5]
+
 	// スライスの結合
 	s1 := []int{1, 2, 3}
 	s2 := []int{4, 5, 6}
 	s3 := append(s1, s2...)
 
 	fmt.Println(s3) // [1 2 3 4 5 6]
+
+	// スライスの要素の追加
+	s = []int{1, 2, 3, 4, 5}
+	i := 2
+	s = append(s[:i], append([]int{100}, s[i:]...)...)
+
+	fmt.Println(s) // [1 2 100 3 4 5]
+
+	// スライスの要素の追加: 2
+	s = []int{1, 2, 3, 4, 5}
+	i = 2
+	s = append(s, 0)
+	copy(s[i+1:], s[i:])
+	s[i] = 100
+
+	fmt.Println(s) // [1 2 100 3 4 5]
 
 	// スライスの要素削除
 	s := []int{1, 2, 3, 4, 5}
@@ -156,6 +179,29 @@ func main() {
 
 	fmt.Println(s) // [1 3 5]
 
+	// スライスの要素を偶数でフィルタリング: 2
+	s = []int{1, 2, 3, 4, 5}
+	n := 0
+	for _, v := range s {
+		if v%2 != 0 {
+			s[n] = v
+			n++
+		}
+	}
+	s = s[:n]
+
+	// スライスの要素を奇数でフィルタリング
+	s = []int{1, 2, 3, 4, 5}
+	for i := 0; i < len(s); {
+		if s[i]%2 != 0 {
+			s = append(s[:i], s[i+1:]...)
+		} else {
+			i++
+		}
+	}
+
+	fmt.Println(s) // [2 4]
+
 	// スライスを任意の要素数に分割
 	s = []int{1, 2, 3, 4, 5}
 	n = 2
@@ -194,3 +240,36 @@ func main() {
 	fmt.Println(dst1) // [[1 2] [3 4] [5]]
 
 }
+
+
+// スライスをシャッフリングする
+src1 = []int{1, 2, 3, 4, 5}
+dst1 := make([]int, len(src1))
+perm := rand.Perm(len(src1))
+for i, v := range perm {
+	dst1[v] = src1[i]
+}
+
+fmt.Println(dst1) // [3 5 1 4 2]
+
+
+// スライスをシャッフリングする: 2
+s = []int{1, 2, 3, 4, 5}
+for i := len(s) - 1; i > 0; i-- {
+	j := rand.Intn(i + 1)
+	s[i], s[j] = s[j], s[i]
+}
+
+fmt.Println(s) // [3 5 1 4 2]
+
+
+// スライスをバッチ処理する
+actions := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+batchSize := 3
+batches := make([][]int, 0, (len(actions)+batchSize-1)/batchSize)
+
+for batchSize < len(actions) {
+	actions, batches = actions[batchSize:], append(batches, actions[0:batchSize:batchSize])
+}
+batches = append(batches, actions)
+fmt.Println(batches)
