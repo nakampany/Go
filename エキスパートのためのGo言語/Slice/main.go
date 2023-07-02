@@ -273,3 +273,83 @@ for batchSize < len(actions) {
 }
 batches = append(batches, actions)
 fmt.Println(batches)
+
+// ２次元スライスの定義：１
+var s [][]int
+
+// ２次元スライスの定義：２
+s := [][]int{{1, 2}, {3, 4}, {5, 6}}
+fmt.Println(s) // [[1 2] [3 4] [5 6]]
+
+// ２次元スライスの定義：３
+s := make([][]int, 5)
+fmt.Println(s) // [[0] [0] [0] [0] [0]]
+
+// ２次元スライスの定義：4
+s := make([][]int, 5, 10)
+fmt.Println(s) // [[0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0]]
+
+// ２次元スライスの定義：5
+s := make([][]int, 5)
+for i := range s {
+	s[i] = make([]int, 3)
+}
+
+fmt.Println(s) // [[0 0 0] [0 0 0] [0 0 0] [0 0 0] [0 0 0]]
+
+// ２次元スライスの要素を取得する
+s = [][]int{{1, 2}, {3, 4}, {5, 6}}
+fmt.Println(s[1][1]) // 4
+
+// ２次元スライスの要素追加
+s = [][]int{{1, 2}, {3, 4}, {5, 6}}
+s = append(s, []int{7, 8})
+fmt.Println(s) // [[1 2] [3 4] [5 6] [7 8]]
+
+// ２次元スライスの要素削除
+s = [][]int{{1, 2}, {3, 4}, {5, 6}}
+i := 1
+s = append(s[:i], s[i+1:]...)
+fmt.Println(s) // [[1 2] [5 6]]
+
+// ２次元スライスの要素削除: 2
+s = [][]int{{1, 2}, {3, 4}, {5, 6}}
+i := 1
+s = s[:i+copy(s[i:], s[i+1:])]
+fmt.Println(s) // [[1 2] [5 6]]
+
+// ２次元スライスの要素削除: 3
+s = [][]int{{1, 2}, {3, 4}, {5, 6}}
+i := 1
+
+// ２次元スライスの要素結合
+s1 = [][]int{{1, 2}, {3, 4}, {5, 6}}
+s1 = [][]int{{1, 2}, {3, 4}, {5, 6}}
+s1 = append(s1, s2...)
+
+fmt.Println(s1) // [[1 2] [3 4] [5 6] [1 2] [3 4] [5 6]]
+
+// ２次元スライスの要素のソート
+s = [][]int{{3, 4}, {1, 2}, {5, 6}}
+sort.Slice(s, func(i, j int) bool {
+	return s[i][0] < s[j][0]
+})
+fmt.Println(s) // [[1 2] [3 4] [5 6]]
+
+// ２次元スライスの要素のソート: 2
+s = [][]int{{3, 4}, {1, 2}, {5, 6}}
+sort.SliceStable(s, func(i, j int) bool {
+	return s[i][0] < s[j][0]
+})
+fmt.Println(s) // [[3 4] [1 2] [5 6]]
+
+// ２次元スライスの要素のソート: 3
+s = [][]int{{2, 4}, {1, 3}, {5, 6}}
+sort.Slice(s, func(i, j int) bool {
+	return s[i][1] < s[j][1]
+}
+fmt.Println(s) // [[1 3] [2 4] [5 6]]
+
+
+
+
