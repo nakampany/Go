@@ -347,7 +347,7 @@ fmt.Println(s) // [[3 4] [1 2] [5 6]]
 s = [][]int{{2, 4}, {1, 3}, {5, 6}}
 sort.Slice(s, func(i, j int) bool {
 	return s[i][1] < s[j][1]
-}
+})
 fmt.Println(s) // [[1 3] [2 4] [5 6]]
 
 
